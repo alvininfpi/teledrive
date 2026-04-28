@@ -1,0 +1,6 @@
+{
+  "name": "TeleDrive Cloud",
+  "description": "A full-stack application that uses Telegram MTProto as a cloud storage backend, allowing files up to 2GB.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

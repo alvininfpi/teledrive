@@ -1,0 +1,47 @@
+{
+  "name": "react-example",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node dist/server.cjs",
+    "dev": "tsx server.ts",
+    "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --outfile=dist/server.cjs --packages=external",
+    "preview": "vite preview",
+    "clean": "rm -rf dist",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@google/genai": "^1.29.0",
+    "@tailwindcss/vite": "^4.1.14",
+    "@types/multer": "^2.1.0",
+    "@vitejs/plugin-react": "^5.0.4",
+    "archiver": "^7.0.1",
+    "axios": "^1.15.2",
+    "buffer": "^6.0.3",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "express-fileupload": "^1.5.2",
+    "input": "^1.0.1",
+    "lucide-react": "^0.546.0",
+    "motion": "^12.23.24",
+    "multer": "^2.1.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "streamsaver": "^2.0.6",
+    "telegram": "^2.26.22",
+    "vite": "^6.2.0"
+  },
+  "devDependencies": {
+    "@types/archiver": "^7.0.0",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.14.0",
+    "@types/streamsaver": "^2.0.5",
+    "autoprefixer": "^10.4.21",
+    "esbuild": "^0.28.0",
+    "tailwindcss": "^4.1.14",
+    "tsx": "^4.21.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}
