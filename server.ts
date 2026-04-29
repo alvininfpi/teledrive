@@ -30,14 +30,21 @@ const upload = multer({ storage: multer.memoryStorage() });
 let client: TelegramClient;
 
 async function initTelegram() {
+  if (client && client.connected) {
+    return client;
+  }
+
   if (!apiId || !apiHash) {
     console.error('TELEGRAM_API_ID and TELEGRAM_API_HASH must be set in .env');
     return;
   }
   
-  client = new TelegramClient(stringSession, apiId, apiHash, {
-    connectionRetries: 5,
-  });
+  if (!client) {
+    client = new TelegramClient(stringSession, apiId, apiHash, {
+      connectionRetries: 5,
+      useWSS: true, // often better for web environments
+    });
+  }
 
   try {
     await client.connect();
@@ -46,9 +53,15 @@ async function initTelegram() {
     if (!await client.isUserAuthorized()) {
       console.warn('TELEGRAM USER NOT AUTHORIZED. Please provide a valid TELEGRAM_STRING_SESSION.');
     }
-  } catch (err) {
-    console.error('Failed to connect to Telegram:', err);
+  } catch (err: any) {
+    if (err.message.includes('AUTH_KEY_DUPLICATED')) {
+      console.error('ERROR: AUTH_KEY_DUPLICATED detected. This session string is already being used by another active connection.');
+      console.error('Please stop other instances (like your local dev server) or generate a new session string for this deployment.');
+    } else {
+      console.error('Failed to connect to Telegram:', err);
+    }
   }
+  return client;
 }
 
 async function startServer() {
